@@ -1,0 +1,17 @@
+<resources>
+    <string name="app_name">ExamenFinalCicerchia</string>
+    <string name="app_name_2">Clima</string>
+
+    <!-- Titulos Menues -->
+    <string name="title_item_menu_agregar_ciudad">Agregar Ciudad</string>
+    <string name="title_item_menu_sincronizar">Actualizar Clima</string> <!-- de momento no se usa -->
+    <string name="title_item_menu_autor">Acerca De</string>
+    <string name="title_item_menu_volver_a_main">Agregar Ciudad</string>
+
+    <!--Nombre Botones -->
+
+    <!--Autor-->
+    <string name="nombre_autor">CICERCHIA MARTIN FEDERICO</string>
+    <string name= "email_autor">mcicerchia@frsf.utn.edu.ar</string>
+    <string name="cel_autor">+5493426108610</string>
+</resources>

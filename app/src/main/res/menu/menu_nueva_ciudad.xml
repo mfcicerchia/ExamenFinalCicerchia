@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+
+    <item
+        android:id="@+id/id_menu_item_volver_a_main"
+        android:enabled="true"
+        android:icon="@drawable/ic_menu_add"
+        android:title="@string/title_item_menu_volver_a_main"
+        android:visible="true"
+        app:showAsAction="ifRoom|withText" />
+
+</menu>
