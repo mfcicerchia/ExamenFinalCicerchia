@@ -35,12 +35,12 @@ public class Clima {
 
     }
 
-    public Clima(float temp, String descripcion, float humedad, String visibilidad){
-        this.temActual = temp;
-        this.descripcion = descripcion;
-        this.humedad = humedad;
-        this.visibilidad = visibilidad;
-    }
+//    public Clima(float temp, String descripcion,  String visibilidad, float humedad){
+//        this.temActual = temp;
+//        this.descripcion = descripcion;
+//        this.humedad = humedad;
+//        this.visibilidad = visibilidad;
+//    }
 
     public Clima(float temActual, float st, String visibilidad) {
         this.temActual = temActual;
@@ -52,7 +52,7 @@ public class Clima {
         this.temActual = temActual;
     }
 
-    public Clima(float temp, String visibilidad, String descripcion, int humedad){
+    public Clima(float temp, String visibilidad, String descripcion, float humedad){
         this.temActual = temp;
         this.visibilidad = visibilidad;
         this.descripcion = descripcion;

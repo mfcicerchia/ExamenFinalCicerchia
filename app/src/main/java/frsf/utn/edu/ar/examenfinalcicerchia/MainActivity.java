@@ -23,7 +23,6 @@ import frsf.utn.edu.ar.examenfinalcicerchia.Adaptadores.AdaptadorCiudad;
 import frsf.utn.edu.ar.examenfinalcicerchia.DTOs.DTOclima;
 import frsf.utn.edu.ar.examenfinalcicerchia.Modelo.Ciudad;
 import frsf.utn.edu.ar.examenfinalcicerchia.Modelo.Clima;
-import frsf.utn.edu.ar.examenfinalcicerchia.WebServices.LeerTemperatura;
 import frsf.utn.edu.ar.examenfinalcicerchia.WebServices.MiTareaAsincrona;
 
 public class MainActivity extends AppCompatActivity implements ListView.OnItemClickListener {
@@ -35,9 +34,9 @@ public class MainActivity extends AppCompatActivity implements ListView.OnItemCl
     final static String API_KEY = "2dbc54f6d493229a6986fad7d4b204e4";
     static ProgressDialog pDialog;
     int requestCode = 1;
-    LeerTemperatura service;
     MiTareaAsincrona tarea1;
     public static ArrayList<Ciudad> datos = new ArrayList<Ciudad>();
+
     SharedPreferences prefs;
 
     int idCiudad =1;
@@ -105,7 +104,13 @@ public class MainActivity extends AppCompatActivity implements ListView.OnItemCl
 
             case R.id.id_menu_item_sincronizar:
 
-                Toast.makeText(this.getApplicationContext(), "Sincronizar con WebService - ACTUALIZACION MASIVA", Toast.LENGTH_SHORT).show();
+//                cargarCiudadesAgregadas();
+//
+//                for(Ciudad c: datos){
+//                    callWebService(c.getNombre());
+//                }
+                this.refreshList();
+                //Toast.makeText(this.getApplicationContext(), "Sincronizar con WebService - ACTUALIZACION MASIVA", Toast.LENGTH_SHORT).show();
                 break;
 
             case R.id.id_menu_item_autor:
@@ -134,6 +139,11 @@ public class MainActivity extends AppCompatActivity implements ListView.OnItemCl
         DTOclima.setCiudad(ciudadSeleccionada);
         tarea1 = new MiTareaAsincrona(MainActivity.this);
         tarea1.execute(url);
+//        tarea1.actualizarVista();
+
+
+
+
     }
 
 
@@ -145,6 +155,7 @@ public class MainActivity extends AppCompatActivity implements ListView.OnItemCl
 
         if ((requestCode == 1) && (resultCode == RESULT_OK)) {
             Toast.makeText(this.getApplicationContext(), "Ciudad Agregada: " + nombreCiudad, Toast.LENGTH_SHORT).show();
+
 
 
            //datos.add(new Ciudad(idCiudad, nombreCiudad, new Clima(0, "0", "0", 0)));
@@ -162,6 +173,8 @@ public class MainActivity extends AppCompatActivity implements ListView.OnItemCl
                 //editor.putFloat(nombreCiudad, 999); /// Lo que guardo en las shared preferences es "clave","valor"--> (nombreCidad,Temperatura)
                 editor.putString(Integer.toString(idCiudad),nombreCiudad);
                 editor.commit();
+
+                callWebService(nombreCiudad);
             }
 
             ///Obtengo la temperatura de la ciudad agregada
@@ -196,14 +209,6 @@ public class MainActivity extends AppCompatActivity implements ListView.OnItemCl
         lvCiudades.setOnItemClickListener(this);
     }
 
-    public static void agregarDatosItem(){
-        float temp = Float.parseFloat(DTOclima.getTemperatura());
-        String visibilidad = DTOclima.getVisibilidad();
-        String descripcion = DTOclima.getDescripcion();
-        int humedad = Integer.parseInt(DTOclima.getHumedad());
-
-        datos.add(new Ciudad(99, DTOclima.getCiudad(), new Clima(temp, visibilidad, descripcion, humedad)));
-    }
 
     @Override
     protected void onStart() {
@@ -215,7 +220,7 @@ public class MainActivity extends AppCompatActivity implements ListView.OnItemCl
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        datos = new ArrayList<>();
+        //datos = new ArrayList<>();
     }
 
     private void cargarCiudadesAgregadas() {
@@ -244,7 +249,7 @@ public class MainActivity extends AppCompatActivity implements ListView.OnItemCl
             }
         }
     }
-    private boolean existeCiudad(String nombreCiudad){
+    public static boolean existeCiudad(String nombreCiudad){
         if(datos!=null){
             for(Ciudad c: datos){
                 if(c.getNombre()==nombreCiudad){
@@ -254,4 +259,44 @@ public class MainActivity extends AppCompatActivity implements ListView.OnItemCl
         }
         return false;
     }
+
+    public static void actualizarDatosCiudad(){
+        Ciudad ciu = new Ciudad(DTOclima.getCiudad());
+        //float temp = Float.valueOf(DTOclima.getTemperatura());
+        String visibilidad = DTOclima.getVisibilidad();
+        String descripcion = DTOclima.getDescripcion();
+        float temp = Float.valueOf(DTOclima.getTemperatura());
+        float hum = Float.valueOf(DTOclima.getHumedad());
+
+        Clima cli = new Clima(temp,visibilidad,descripcion,hum);
+        ciu.setClima(cli);
+
+        for(Ciudad c: datos) {
+            if (c.getNombre() == ciu.getNombre()){
+                Log.i("Existe Ciudad","La ciudad a actualizar fue encontrada. " +
+                        "\n Su visibilidad es: "+visibilidad + "" +
+                        "\n Descripcion: "+descripcion+"" +
+                        "\n Temperatura: "+Float.toString(temp)+descripcion+"" +
+                        "\n Humedad: "+Float.toString(hum));
+                c.updateCiudad(ciu);
+            }
+        }
+    }
+
+    private void actualizarVista(){
+        this.refreshList();
+    }
+
+    public void callWebService(String nombreCiudad){
+        // llamo al Web Service cuando pulso un item del list view
+        DTOclima.reset();
+        String ciudadSeleccionada = nombreCiudad;
+
+        String url = "http://api.openweathermap.org/data/2.5/weather?q="+ciudadSeleccionada+",ar&appid=2dbc54f6d493229a6986fad7d4b204e4";
+
+        DTOclima.setCiudad(ciudadSeleccionada);
+        tarea1 = new MiTareaAsincrona(MainActivity.this);
+        tarea1.execute(url);
+    }
+
 }

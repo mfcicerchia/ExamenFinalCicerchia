@@ -14,4 +14,8 @@
     <string name="nombre_autor">CICERCHIA MARTIN FEDERICO</string>
     <string name= "email_autor">mcicerchia@frsf.utn.edu.ar</string>
     <string name="cel_autor">+5493426108610</string>
+
+    <!-- Para futura publicidad -->
+    <string name="banner_ad_unit_id"> mi-codigo <!--ca-app-pub-3940256099942544/6300978111--></string>
+
 </resources>

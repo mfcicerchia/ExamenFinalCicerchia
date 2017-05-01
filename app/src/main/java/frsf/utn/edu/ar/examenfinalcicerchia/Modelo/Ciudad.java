@@ -89,4 +89,10 @@ public class Ciudad {
     public void setClima(Clima clima) {
         this.clima = clima;
     }
+
+
+    public void updateCiudad(Ciudad ciu) {
+        this.nombre = ciu.getNombre();
+        this.clima = ciu.getClima();
+    }
 }

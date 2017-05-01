@@ -51,21 +51,21 @@ public class AdaptadorCiudad extends ArrayAdapter<Ciudad> {
 
         // Temperatura
         TextView tvTemperatura = (TextView) item.findViewById(R.id.tvTemperatura);
-        tvTemperatura.setText("Temperatura: "+ datos[position].getClima().getTemActual()+" °C");
+        tvTemperatura.setText("Temp: "+ datos[position].getClima().getTemActual()+" °C");
 
         // Humedad
         TextView tvTitleHumedad = (TextView) item.findViewById(R.id.tvTitleHumedad);
         tvTitleHumedad.setText("Humedad");
 
         TextView tvHumedad = (TextView) item.findViewById(R.id.tvHumedad);
-        tvHumedad.setText(datos[position].getClima().getSt() + " %");
+        tvHumedad.setText(datos[position].getClima().getHumedad() + " %");
 
         // Visibilidad
         TextView tvTitleVisibilidad = (TextView) item.findViewById(R.id.tvTitleVisibilidad);
         tvTitleVisibilidad.setText("Visibiliad");
 
         TextView tvVisibilidad = (TextView) item.findViewById(R.id.tvVisibilidad);
-        tvVisibilidad.setText(datos[position].getClima().getVisibilidad()+" Km");
+        tvVisibilidad.setText(datos[position].getClima().getVisibilidad());
 
 
         // Estado/descripcion del clima

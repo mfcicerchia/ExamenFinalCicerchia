@@ -15,6 +15,7 @@ import java.io.InputStreamReader;
 import java.net.URL;
 
 import frsf.utn.edu.ar.examenfinalcicerchia.DTOs.DTOclima;
+import frsf.utn.edu.ar.examenfinalcicerchia.MainActivity;
 
 
 /**
@@ -108,7 +109,7 @@ public class MiTareaAsincrona extends AsyncTask<String, Integer, String> {
             float temperaturaKFloat = ((int) temperaturaK * 100) / 100;
             float temperaturaC = (float) (temperaturaKFloat - 273.15);
 
-            DTOclima.setTemperatura(String.valueOf(temperaturaC) + " °C");
+            DTOclima.setTemperatura(String.valueOf(temperaturaC));
 
         } catch (Exception e) {
             Toast.makeText(contexto, "Error al parsear Temperatura. " + e.getStackTrace(), Toast.LENGTH_LONG).show();
@@ -116,7 +117,7 @@ public class MiTareaAsincrona extends AsyncTask<String, Integer, String> {
         }
 
 
-        // obtener temperatura
+        // obtener descripcion
         try {
             JSONObject json = new JSONObject(texto);
             JSONArray jsonWeather = json.getJSONArray("weather");
@@ -135,9 +136,9 @@ public class MiTareaAsincrona extends AsyncTask<String, Integer, String> {
         try {
             JSONObject json = new JSONObject(texto);
             JSONObject jsonMain = json.getJSONObject("main");
-            int humedad = jsonMain.getInt("humidity");
+            float humedad = jsonMain.getInt("humidity");
 
-            DTOclima.setHumedad(String.valueOf(humedad) + "%");
+            DTOclima.setHumedad(String.valueOf(humedad));
 
         } catch (Exception e) {
             Log.e("problema", e.getMessage());
@@ -158,33 +159,15 @@ public class MiTareaAsincrona extends AsyncTask<String, Integer, String> {
                     "Humedad: " + ": " + DTOclima.getHumedad() + "\n" +
                     "Descripcion: " + ": " + DTOclima.getDescripcion(), Toast.LENGTH_SHORT).show();
 
-//        for (Ciudad c : MainActivity.datos) {
-//            if (c.getNombre() == DTOclima.getCiudad()) {
-//                Toast.makeText(contexto, "La ciudad Existe en la lista", Toast.LENGTH_SHORT).show();
-//                Clima nuevoClima = new Clima();
-//                nuevoClima.setTemActual(Float.valueOf(DTOclima.getTemperatura()));
-//                nuevoClima.setEstado(DTOclima.getDescripcion());
-//                nuevoClima.setHumedad(Integer.valueOf(DTOclima.getHumedad()));
-//                nuevoClima.setVisibilidad(DTOclima.getVisibilidad());
-//
-//                c.setClima(nuevoClima);
-//            }
-//        }
-
-//            Ciudad ciu = new Ciudad(DTOclima.getCiudad());
-//            Clima cli = new Clima(Float.valueOf(DTOclima.getTemperatura()),
-//                                  DTOclima.getDescripcion(),
-//                                  Float.valueOf(DTOclima.getHumedad()),
-//                                  DTOclima.getVisibilidad());
-//            ciu.setClima(cli);
-//            MainActivity.datosActualizados.add(ciu);
-
+            if (MainActivity.existeCiudad(DTOclima.getCiudad())) {
+                //Toast.makeText(contexto, "Ciudad existente", Toast.LENGTH_LONG).show();
+                MainActivity.actualizarDatosCiudad();
+            }
         }
-
-
-//        if(!resultado.isEmpty()) Toast.makeText(contexto, "Tarea finalizada!", Toast.LENGTH_LONG).show();
-//        temperatura = resultado;
     }
+
+
+
 
     @Override
     protected void onCancelled() {
