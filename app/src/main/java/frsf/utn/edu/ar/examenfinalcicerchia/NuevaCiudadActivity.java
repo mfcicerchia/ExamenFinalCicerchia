@@ -14,6 +14,7 @@ public class NuevaCiudadActivity extends AppCompatActivity implements View.OnCli
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_nueva_ciudad);
 
         Button btnNuevaCiudad = (Button) findViewById(R.id.btnNuevaCiudad);
@@ -22,16 +23,11 @@ public class NuevaCiudadActivity extends AppCompatActivity implements View.OnCli
         btnNuevaCiudad.setOnClickListener(this);
         //btnCancelar.setOnClickListener(this);
 
-
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
     }
 
-//    @Override
-//    protected void onDestroy() {
-//        super.onDestroy();
-//        Intent i = new Intent(this, MainActivity.class);
-//        startActivity(i);
-//    }
+
+
 
     @Override
     public void onClick(View v) {
@@ -68,9 +64,12 @@ public class NuevaCiudadActivity extends AppCompatActivity implements View.OnCli
                 }
 
         }
+    }
 
-
-
-
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        Intent i = new Intent(this, MainActivity.class);
+        setResult(RESULT_CANCELED,i);
     }
 }

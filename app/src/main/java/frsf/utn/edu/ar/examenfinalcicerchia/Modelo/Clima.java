@@ -9,61 +9,34 @@ import java.util.Date;
 
 public class Clima {
 
-
-
-    private Date fecha;
+    // unicas variables usadas para la resolucion del tp
     private float temActual;
+    private String visibilidad;
+    private String descripcion; // ej: despejado, nubosidad variable. El api provee los datos en inglres. Ej: clear Sky
+    private float humedad;
+
+
+    /// otras variables que podrian usarse en el modelo (no usados momentaneamente)
+    private int indiceUV;
+    private Date fecha;
     private float max;
     private float min;
-    private String descripcion; // ej: despejado, nubosidad variable
     private float st; // sensacion termica
-
     private String precipitaciones;
     private float presion;
-    private String visibilidad;
-
-    /// otros datos
-    private int indiceUV;
-    private float humedad;
     private int viento;
     private float puntoRocio;
-
     private Time salidaSol;
     private Time puestaSol;
 
-    public Clima(){
 
-    }
-
-//    public Clima(float temp, String descripcion,  String visibilidad, float humedad){
-//        this.temActual = temp;
-//        this.descripcion = descripcion;
-//        this.humedad = humedad;
-//        this.visibilidad = visibilidad;
-//    }
-
-    public Clima(float temActual, float st, String visibilidad) {
-        this.temActual = temActual;
-        this.st = st;
-        this.visibilidad = visibilidad;
-    }
-
-    public Clima(float temActual) {
-        this.temActual = temActual;
-    }
-
-    public Clima(float temp, String visibilidad, String descripcion, float humedad){
+    public Clima(float temp, String visibilidad, String descripcion, float humedad) {
         this.temActual = temp;
         this.visibilidad = visibilidad;
         this.descripcion = descripcion;
         this.humedad = humedad;
     }
 
-    public Clima(Date fecha, float temActual, int viento) {
-        this.fecha = fecha;
-        this.temActual = temActual;
-        this.viento = viento;
-    }
 
     public Date getFecha() {
         return fecha;
