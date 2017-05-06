@@ -84,8 +84,18 @@ public class MainActivity extends AppCompatActivity implements ListView.OnItemCl
 
             case R.id.id_menu_item_sincronizar:
 
-//                cargarCiudadesAgregadas();
+//                ArrayList<Ciudad> ciudadesAux;
+//                ciudadesAux = recuperarCiudadesGrabadas();
 //
+//                if(ciudadesAux.size()!=0 && ciudadesAux!= null){
+//                    datos = ciudadesAux;
+//                    this.refreshList();
+//                }else{
+//                    Toast.makeText(this.getApplicationContext(), "No hay ciudades para actualizar", Toast.LENGTH_SHORT).show();
+//                }
+
+                //cargarCiudadesAgregadas();
+
 //                for(Ciudad c: datos){
 //                    callWebService(c.getNombre());
 //                }
@@ -182,10 +192,10 @@ public class MainActivity extends AppCompatActivity implements ListView.OnItemCl
     public void refreshList() {
 
         ListView lvCiudades = (ListView) findViewById(R.id.lvCiudades);
-        // actualizo la lista de la vista
 
         // invocamos la instancia del adaptador personalizado
         AdaptadorCiudad adaptador = new AdaptadorCiudad(this, this.datos);
+
         // asigno el adaptador al ListView
         lvCiudades.setAdapter(adaptador);
 
@@ -207,14 +217,14 @@ public class MainActivity extends AppCompatActivity implements ListView.OnItemCl
     }
 
     private void cargarCiudadesAgregadas() {
-        ///Grabarla en las SharedPreferences el nombre de la ciudad ingresada y una temperatura ficticia
+
         prefs = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
         if (datos != null) {
 
 
             int tam = prefs.getAll().size();
             idCiudad = tam;
-            Toast.makeText(this.getApplicationContext(), "Ciudades Persistidas: " + Integer.toString(tam), Toast.LENGTH_SHORT).show();
+           // Toast.makeText(this.getApplicationContext(), "Ciudades Persistidas: " + Integer.toString(tam), Toast.LENGTH_SHORT).show();
 
 
             //int j=0;
@@ -283,4 +293,23 @@ public class MainActivity extends AppCompatActivity implements ListView.OnItemCl
         pedirDatosAsynTask.execute(url);
     }
 
+    private ArrayList<Ciudad> recuperarCiudadesGrabadas() {
+
+        ArrayList<Ciudad> ciudadesRecuperadas = new ArrayList<>();
+
+        prefs = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
+        int tam = prefs.getAll().size();
+        idCiudad = tam;
+
+        for (int i = 1; i <= tam; i++) {
+            String nombreCiudad;
+            nombreCiudad = prefs.getString(Integer.toString(i), "0");
+
+            if (nombreCiudad != "0") {
+                Ciudad c = new Ciudad(nombreCiudad);
+                ciudadesRecuperadas.add(c);
+            }
+        }
+        return ciudadesRecuperadas;
+    }
 }

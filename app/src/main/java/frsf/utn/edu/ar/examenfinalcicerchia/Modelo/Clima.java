@@ -12,7 +12,7 @@ public class Clima {
     // unicas variables usadas para la resolucion del tp
     private float temActual;
     private String visibilidad;
-    private String descripcion; // ej: despejado, nubosidad variable. El api provee los datos en inglres. Ej: clear Sky
+    private String descripcion; // ej: despejado, nubosidad variable. El api provee los datos en ingles. Ej: clear Sky
     private float humedad;
 
 

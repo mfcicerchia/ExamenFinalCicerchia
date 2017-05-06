@@ -43,18 +43,15 @@ public class NuevaCiudadActivity extends AppCompatActivity implements View.OnCli
                 String nombreCiudad = etNombreCiudad.getText().toString().toUpperCase();
 
                 if (nombreCiudad.length() != 0) {
-                    //dao.crearCiudad(nombreCiudad);   /// 1er modificacion
+                    // dao.crearCiudad(nombreCiudad);   /// 1er modificacion
 
 
-                    ///*** pasarle el nombre ingresado al MainActivity
+                    // pasarle el nombre ingresado al MainActivity
                     Intent i = new Intent(this, MainActivity.class);
                     i.putExtra("ciudad", nombreCiudad);
                     setResult(RESULT_OK, i);
                     finish();
-                    /*startActivity(i);*/
 
-                    //Toast.makeText(this.getApplicationContext(), "Ciudad Agregada", Toast.LENGTH_SHORT).show();
-                    //etNombreCiudad.setText(" ");
                     etNombreCiudad.clearComposingText();
 
                 } else {
